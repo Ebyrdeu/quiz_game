@@ -1,11 +1,15 @@
 package ui;
 
+import dao.result.ResultDaoImpl;
 import entity.Result;
 import entity.Student;
 
 import java.util.Scanner;
 
 public class Menu implements Menuable {
+
+    private final ResultDaoImpl resultDao = new ResultDaoImpl();
+
     @Override
     public void start(Scanner scanner) {
         boolean running = true;
@@ -62,11 +66,11 @@ public class Menu implements Menuable {
     }
 
     private void showResults() {
-
+        resultDao.readAll().forEach(result -> System.out.printf("Name: %s ---- Score: %d\n", result.student().name(), result.score()));
     }
 
     private void showLeaderboard() {
-
+        resultDao.readAllLeaderBoard().forEach(result -> System.out.printf("Name: %s ---- Score: %d\n", result.student().name(), result.score()));
     }
 
     private void updateStudentEmail(Scanner scanner) {
@@ -86,5 +90,10 @@ public class Menu implements Menuable {
         System.out.println("Select result Id");
         int resultId = scanner.nextInt();
 
+        Result result = new Result();
+
+        result.setId(resultId);
+
+        resultDao.delete(result);
     }
 }

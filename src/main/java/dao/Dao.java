@@ -1,12 +1,14 @@
 package dao;
 
+import java.util.List;
+
 public interface Dao<T> {
 
     void create(T entity);
 
     T read(T entity);
 
-    T readAll();
+    List<T> readAll();
 
     void update(T entity);
 

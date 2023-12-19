@@ -2,6 +2,8 @@ package dao.category;
 
 import entity.Category;
 
+import java.util.List;
+
 public class CategoryDaoImpl implements CategoryDao {
     @Override
     public void create(Category entity) {
@@ -14,7 +16,7 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public Category readAll() {
+    public List<Category> readAll() {
         return null;
     }
 

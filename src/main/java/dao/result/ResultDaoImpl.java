@@ -55,4 +55,5 @@ public class ResultDaoImpl implements ResultDao {
             em.remove(mergedEntity);
         });
     }
+
 }

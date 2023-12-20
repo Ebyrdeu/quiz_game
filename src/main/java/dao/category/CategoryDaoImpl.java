@@ -22,11 +22,9 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void update(Category entity) {
-
     }
 
     @Override
     public void delete(Category entity) {
-
     }
 }

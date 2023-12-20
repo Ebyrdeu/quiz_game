@@ -1,12 +1,11 @@
-import ui.Menu;
+import ui.AppMenu;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        Menu menu = new Menu();
+        AppMenu menu = new AppMenu();
 
         menu.start(scanner);
 

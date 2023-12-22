@@ -1,8 +1,8 @@
-CREATE DATABASE projektGruppJava;
+CREATE DATABASE IF NOT EXISTS projektGruppJava;
 
 CREATE TABLE difficulty
 (
-    difficultyId   INT PRIMARY KEY,
+    difficultyId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     difficultyType VARCHAR(255) NOT NULL
 );
 
@@ -44,6 +44,5 @@ CREATE TABLE result
 
 CREATE UNIQUE INDEX index_student_email ON student (email);
 CREATE UNIQUE INDEX index_category_categoryName ON category (categoryName);
-CREATE UNIQUE INDEX index_difficulty_difficultyType ON difficulty (difficultyType);
 
 

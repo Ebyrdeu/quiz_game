@@ -1,15 +1,13 @@
 package entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "category", schema = "ProjektGruppJava")
+@Table(name = "category", schema = "projektGruppJava")
 public class Category {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoryId")
     private int categoryId;
 
@@ -22,8 +20,9 @@ public class Category {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public Category setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+        return this;
     }
 
     public String name() {

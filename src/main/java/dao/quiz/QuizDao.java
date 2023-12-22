@@ -1,4 +1,10 @@
 package dao.quiz;
 
-public interface QuizDao {
+import dao.Dao;
+import entity.Quiz;
+
+import java.util.List;
+
+public interface QuizDao extends Dao<Quiz> {
+    List<Quiz> readAll();
 }

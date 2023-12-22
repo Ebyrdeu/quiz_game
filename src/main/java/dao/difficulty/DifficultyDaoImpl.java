@@ -1,53 +1,45 @@
 package dao.difficulty;
 
+import database.utils.Query;
 import entity.Difficulty;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Persistence;
 
 import java.util.List;
 
 public class DifficultyDaoImpl implements DifficultyDao {
 
-    private EntityManager entityManager;
 
-    public DifficultyDaoImpl() {
-        this.entityManager = Persistence.createEntityManagerFactory("jpa-hibernate-mysql").createEntityManager();
+    @Override
+    public void create(Difficulty entity) {
+        Query.inTransactionVoid(em -> em.persist(entity));
     }
 
     @Override
-    public void insertDifficulty(Difficulty difficulty) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(difficulty);
-        entityManager.getTransaction().commit();
+    public Difficulty read(Difficulty entity) {
+        return Query.inTransaction(em -> em.find(Difficulty.class, entity.id()));
     }
 
     @Override
-    public Difficulty findDifficultyById(Long id) {
-        return entityManager.find(Difficulty.class, id);
+    public List<Difficulty> readAll() {
+        return Query.inTransaction(em -> em.createQuery("SELECT d FROM Difficulty d", Difficulty.class).getResultList());
     }
 
     @Override
-    public List<Difficulty> findAllDifficulties() {
-        return entityManager.createQuery("SELECT d FROM Difficulty d", Difficulty.class).getResultList();
+    public void update(Difficulty difficulty) {
+        Query.inTransactionVoid(em -> {
+            Difficulty existingDifficulty = em.find(Difficulty.class, difficulty.id());
+            if (existingDifficulty != null) {
+                existingDifficulty.setName(difficulty.name());
+            }
+        });
     }
 
     @Override
-    public void updateDifficulty(Difficulty difficulty) {
-        entityManager.getTransaction().begin();
-        Difficulty existingDifficulty = entityManager.find(Difficulty.class, difficulty.getId());
-        if (existingDifficulty != null) {
-            existingDifficulty.setName(difficulty.getName());
-        }
-        entityManager.getTransaction().commit();
-    }
-
-    @Override
-    public void deleteDifficulty(Long id) {
-        entityManager.getTransaction().begin();
-        Difficulty difficulty = entityManager.find(Difficulty.class, id);
-        if (difficulty != null) {
-            entityManager.remove(difficulty);
-        }
-        entityManager.getTransaction().commit();
+    public void delete(Difficulty entity) {
+        Query.inTransactionVoid(em -> {
+            Difficulty difficulty = em.find(Difficulty.class, entity.id());
+            if (difficulty != null) {
+                em.remove(difficulty);
+            }
+        });
     }
 }

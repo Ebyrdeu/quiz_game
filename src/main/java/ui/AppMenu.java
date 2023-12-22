@@ -70,5 +70,6 @@ public class AppMenu implements Menuable {
         int selectedCategory = scanner.nextInt();
         scanner.nextLine();
 
+
     }
 }

@@ -2,6 +2,7 @@ package ui;
 
 import dao.result.ResultDaoImpl;
 import entity.Result;
+import entity.Student;
 
 import java.util.Scanner;
 
@@ -55,10 +56,17 @@ public class ResultMenu implements Menuable {
     }
 
     private void createResult(Scanner scanner) {
+        System.out.println("Enter Student Id");
+        int studentId = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Enter Result Score");
         int score = scanner.nextInt();
+        scanner.nextLine();
 
         Result result = new Result();
+
+        result.setStudent(new Student().setId(studentId))
+                .setScore(score);
 
         resultDao.create(result);
     }

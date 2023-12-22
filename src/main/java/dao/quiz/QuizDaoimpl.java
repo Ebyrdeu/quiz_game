@@ -1,7 +1,59 @@
 package dao.quiz;
 
+import database.utils.Query;
+import entity.Quiz;
 
-public class QuizDaoimpl implements QuizDao {
+import java.util.List;
+
+public class QuizDaoimpl implements dao.quiz.QuizDao {
+    @Override
+    public void create(Quiz entity) {
+        Query.inTransactionVoid(em -> em.persist(entity));
+    }
+
+    @Override
+    public Quiz read(Quiz entity) {
+        return Query.inTransaction(em -> {
+            if (em != null) {
+                return em.find(Quiz.class, entity.getQuizId());
+            } else {
+
+                return null;
+            }
+        });
+    }
+
+
+    @Override
+    public List<Quiz> readAll() {
+        var hql = "SELECT q FROM Quiz q";
+
+        return Query.inTransaction(em -> {
+            var query = em.createQuery(hql, Quiz.class);
+            return query.getResultList();
+        });
+    }
+
+    @Override
+    public void update(Quiz entity) {
+        Query.inTransactionVoid(em -> {
+            Quiz existingEntity = em.find(Quiz.class, entity.getQuizId());
+            if (existingEntity != null) {
+                existingEntity.setDifficulty(entity.getDifficulty());
+                existingEntity.setCategory(entity.getCategory());
+                existingEntity.setQuizQuestion(entity.getQuizQuestion());
+                existingEntity.setCorrectAnswer(entity.getCorrectAnswer());
+            }
+        });
+    }
+
+    @Override
+    public void delete(Quiz entity) {
+        Query.inTransactionVoid(em -> {
+            Quiz mergedEntity = em.merge(entity);
+            em.remove(mergedEntity);
+        });
+    }
 
 
 }

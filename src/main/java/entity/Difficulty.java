@@ -1,48 +1,34 @@
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "difficulty", schema = "projektGruppJava")
 public class Difficulty {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "difficultyId")
+    private int id;
+
+    @Column(name = "difficultyType")
     private String name;
 
-
-    public Difficulty() {
-    }
-
-    public Difficulty(String name) {
-        this.name = name;
-    }
-
-
-    public Long getId() {
+    public int id() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
+    public String name() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Difficulty setId(int id) {
+        this.id = id;
+        return this;
     }
 
-    @Override
-    public String toString() {
-        return "Difficulty{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public Difficulty setName(String name) {
+        this.name = name;
+        return this;
     }
 }

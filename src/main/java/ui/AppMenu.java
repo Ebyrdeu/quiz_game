@@ -9,6 +9,7 @@ import entity.Student;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AppMenu implements Menuable {
     private final QuizDaoimpl quizDao = new QuizDaoimpl();
@@ -23,7 +24,7 @@ public class AppMenu implements Menuable {
     }
 
     private void printTableContent(Result entity) {
-        System.out.printf("| %-10s | %-13s | %-5s |%n",
+        System.out.printf("| %-3s | %-30s | %-5s |%n",
                 entity.id(),
                 entity.student().name(),
                 entity.score()
@@ -31,8 +32,9 @@ public class AppMenu implements Menuable {
     }
 
     private void showLeaderboard() {
+        var result = resultDao.readAllLeaderBoard();
         printTableHeader();
-        resultDao.readAllLeaderBoard().forEach(this::printTableContent);
+        result.forEach(this::printTableContent);
     }
 
     @Override
@@ -80,27 +82,17 @@ public class AppMenu implements Menuable {
     }
 
     private void quizStart(Scanner scanner) {
-        var quiz = findQuiz();
-        int userScore = 0;
+        List<Quiz> quiz = findQuiz();
+        var userScore = new AtomicInteger(0);
 
-        System.out.println(quiz.getFirst().getQuizQuestion());
-        var quiz1 = scanner.nextLine().toLowerCase();
+        quiz.forEach(q -> {
+            System.out.println(q.getQuizQuestion());
+            var answer = scanner.nextLine().toLowerCase();
 
-        System.out.println(quiz.get(1).getQuizQuestion());
-        var quiz2 = scanner.nextLine().toLowerCase();
+            if (answer.equals(q.getCorrectAnswer().toLowerCase())) userScore.addAndGet(25);
+        });
 
-        System.out.println(quiz.get(2).getQuizQuestion());
-        var quiz3 = scanner.nextLine().toLowerCase();
-
-        System.out.println(quiz.get(3).getQuizQuestion());
-        var quiz4 = scanner.nextLine().toLowerCase();
-
-        if (quiz1.equals(quiz.getFirst().getCorrectAnswer().toLowerCase())) userScore += 25;
-        if (quiz2.equals(quiz.get(1).getCorrectAnswer().toLowerCase())) userScore += 25;
-        if (quiz3.equals(quiz.get(2).getCorrectAnswer().toLowerCase())) userScore += 25;
-        if (quiz4.equals(quiz.get(3).getCorrectAnswer().toLowerCase())) userScore += 25;
-
-        saveResultToDb(scanner, userScore);
+        saveResultToDb(scanner, userScore.get());
 
         showLeaderboard();
     }
@@ -123,6 +115,6 @@ public class AppMenu implements Menuable {
 
         Collections.shuffle(quizzes);
 
-        return quizzes;
+        return quizzes.subList(0, 4);
     }
 }

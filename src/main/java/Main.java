@@ -10,6 +10,5 @@ Main {
 
         menu.start(scanner);
 
-
     }
 }

@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS projektGruppJava;
+CREATE DATABASE IF NOT EXISTS quiz_game_db;
 
 CREATE TABLE difficulty
 (

@@ -1,6 +1,8 @@
 package ui;
 
+import dao.quiz.QuizDao;
 import dao.quiz.QuizDaoimpl;
+import dao.result.ResultDao;
 import dao.result.ResultDaoImpl;
 import entity.Quiz;
 import entity.Result;
@@ -11,9 +13,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class AppMenu implements Menuable {
-    private final QuizDaoimpl quizDao = new QuizDaoimpl();
-    private final ResultDaoImpl resultDao = new ResultDaoImpl();
+public class AppMenu implements Menu {
+    private final QuizDao quizDao = new QuizDaoimpl();
+    private final ResultDao resultDao = new ResultDaoImpl();
 
     private void printTableHeader() {
         System.out.printf("| %-3s | %-30s | %-5s |%n",
@@ -86,10 +88,10 @@ public class AppMenu implements Menuable {
         var userScore = new AtomicInteger(0);
 
         quiz.forEach(q -> {
-            System.out.println(q.getQuizQuestion());
+            System.out.println(q.quizQuestion());
             var answer = scanner.nextLine().toLowerCase();
 
-            if (answer.equals(q.getCorrectAnswer().toLowerCase())) userScore.addAndGet(25);
+            if (answer.equals(q.correctAnswer().toLowerCase())) userScore.addAndGet(25);
         });
 
         saveResultToDb(scanner, userScore.get());

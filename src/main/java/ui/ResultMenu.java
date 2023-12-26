@@ -1,13 +1,14 @@
 package ui;
 
+import dao.result.ResultDao;
 import dao.result.ResultDaoImpl;
 import entity.Result;
 import entity.Student;
 
 import java.util.Scanner;
 
-public class ResultMenu implements Menuable {
-    private final ResultDaoImpl resultDao = new ResultDaoImpl();
+public class ResultMenu implements Menu {
+    private final ResultDao resultDao = new ResultDaoImpl();
 
     private void printTableHeader() {
         System.out.printf("| %-3s | %-30s | %-5s |%n",

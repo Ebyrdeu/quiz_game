@@ -1,12 +1,13 @@
 package ui;
 
+import dao.category.CategoryDao;
 import dao.category.CategoryDaoImpl;
 import entity.Category;
 
 import java.util.Scanner;
 
-public class CategoryMenu implements Menuable {
-    private final CategoryDaoImpl categoryDao = new CategoryDaoImpl();
+public class CategoryMenu implements Menu {
+    private final CategoryDao categoryDao = new CategoryDaoImpl();
 
     @Override
     public void start(Scanner scanner) {

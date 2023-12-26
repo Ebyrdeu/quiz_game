@@ -3,7 +3,7 @@ package entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "quiz", schema = "projektGruppJava")
+@Table(name = "quiz", schema = "quiz_game_db")
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,24 +24,25 @@ public class Quiz {
     @Column(name = "correctAnswer", nullable = false)
     private String correctAnswer;
 
-    public int getQuizId() {
+    public int id() {
         return quizId;
     }
 
-    public Quiz setQuizId(int quizId) {
+    public Quiz setId(int quizId) {
         this.quizId = quizId;
         return this;
     }
 
-    public Difficulty getDifficulty() {
+    public Difficulty difficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(Difficulty difficulty) {
+    public Quiz setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
+        return this;
     }
 
-    public Category getCategory() {
+    public Category category() {
         return category;
     }
 
@@ -50,7 +51,7 @@ public class Quiz {
         return this;
     }
 
-    public String getQuizQuestion() {
+    public String quizQuestion() {
         return quizQuestion;
     }
 
@@ -59,7 +60,7 @@ public class Quiz {
         return this;
     }
 
-    public String getCorrectAnswer() {
+    public String correctAnswer() {
         return correctAnswer;
     }
 

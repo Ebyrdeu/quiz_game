@@ -2,6 +2,6 @@ package ui;
 
 import java.util.Scanner;
 
-public interface Menuable {
+public interface Menu {
     void start(Scanner scanner);
 }

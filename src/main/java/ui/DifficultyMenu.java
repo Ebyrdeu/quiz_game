@@ -7,7 +7,7 @@ import entity.Difficulty;
 import java.util.List;
 import java.util.Scanner;
 
-public class DifficultyMenu implements Menuable {
+public class DifficultyMenu implements Menu {
 
     private final DifficultyDao difficultyDao = new DifficultyDaoImpl();
 

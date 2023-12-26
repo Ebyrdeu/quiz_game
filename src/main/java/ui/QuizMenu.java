@@ -1,5 +1,6 @@
 package ui;
 
+import dao.quiz.QuizDao;
 import dao.quiz.QuizDaoimpl;
 import entity.Category;
 import entity.Difficulty;
@@ -7,9 +8,9 @@ import entity.Quiz;
 
 import java.util.Scanner;
 
-public class QuizMenu implements Menuable {
+public class QuizMenu implements Menu {
 
-    private final dao.quiz.QuizDaoimpl quizDao = new QuizDaoimpl();
+    private final QuizDao quizDao = new QuizDaoimpl();
 
     // instansvariabel för quiz-data i databasen
 
@@ -31,7 +32,7 @@ public class QuizMenu implements Menuable {
     //ToDo behöver koppla med difficulty och category
 
     private void printTableContent(Quiz entity) {
-        System.out.printf("| %-10s | %-15s | %-15s | %-30s | %-30s |%n", entity.getQuizId(), entity.getDifficulty().name(), entity.getCategory().name(), entity.getQuizQuestion(), entity.getCorrectAnswer());
+        System.out.printf("| %-10s | %-15s | %-15s | %-30s | %-30s |%n", entity.id(), entity.difficulty().name(), entity.category().name(), entity.quizQuestion(), entity.correctAnswer());
     } // Metod för att skriva ut innehållet i ett quiz
 
     @Override
@@ -66,7 +67,7 @@ public class QuizMenu implements Menuable {
         scanner.nextLine();
 
         Quiz quiz = new Quiz();
-        quiz.setQuizId(quizId);
+        quiz.setId(quizId);
         quizDao.delete(quiz);
         // delete quiz metoden
     }
@@ -76,7 +77,7 @@ public class QuizMenu implements Menuable {
         int quizId = scanner.nextInt();
         scanner.nextLine();
 
-        Quiz quiz = quizDao.read(new Quiz().setQuizId(quizId));
+        Quiz quiz = quizDao.read(new Quiz().setId(quizId));
         if (quiz == null) {
             System.out.println("Quiz not found.");
             return;
@@ -111,13 +112,13 @@ public class QuizMenu implements Menuable {
     private void updateQuizDifficulty(Quiz quiz, Scanner scanner) {
         System.out.println("Enter new Difficulty Type (easy, medium, hard): ");
         String difficultyType = scanner.nextLine();
-        quiz.getDifficulty().setName(difficultyType);
+        quiz.difficulty().setName(difficultyType);
     }
 
     private void updateQuizCategory(Quiz quiz, Scanner scanner) {
         System.out.println("Enter new Category Name: ");
         String categoryName = scanner.nextLine();
-        quiz.getCategory().setName(categoryName);
+        quiz.category().setName(categoryName);
     }
 
     private void updateQuizQuestionText(Quiz quiz, Scanner scanner) {

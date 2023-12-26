@@ -15,7 +15,7 @@ public class QuizDaoimpl implements dao.quiz.QuizDao {
     public Quiz read(Quiz entity) {
         return Query.inTransaction(em -> {
             if (em != null) {
-                return em.find(Quiz.class, entity.getQuizId());
+                return em.find(Quiz.class, entity.id());
             } else {
 
                 return null;
@@ -37,12 +37,12 @@ public class QuizDaoimpl implements dao.quiz.QuizDao {
     @Override
     public void update(Quiz entity) {
         Query.inTransactionVoid(em -> {
-            Quiz existingEntity = em.find(Quiz.class, entity.getQuizId());
+            Quiz existingEntity = em.find(Quiz.class, entity.id());
             if (existingEntity != null) {
-                existingEntity.setDifficulty(entity.getDifficulty());
-                existingEntity.setCategory(entity.getCategory());
-                existingEntity.setQuizQuestion(entity.getQuizQuestion());
-                existingEntity.setCorrectAnswer(entity.getCorrectAnswer());
+                existingEntity.setDifficulty(entity.difficulty());
+                existingEntity.setCategory(entity.category());
+                existingEntity.setQuizQuestion(entity.quizQuestion());
+                existingEntity.setCorrectAnswer(entity.correctAnswer());
             }
         });
     }

@@ -1,17 +1,14 @@
 package ui;
 
+import dao.student.StudentDao;
 import dao.student.StudentDaoImpl;
 import entity.Student;
 
 import java.util.Scanner;
 
-public class StudentMenu implements Menuable {
+public class StudentMenu implements Menu {
 
-    private final StudentDaoImpl studentDao = new StudentDaoImpl();
-
-    private String checkOnEmptyString(String string) {
-        return string.isEmpty() ? null : string;
-    }
+    private final StudentDao studentDao = new StudentDaoImpl();
 
     @Override
     public void start(Scanner scanner) {

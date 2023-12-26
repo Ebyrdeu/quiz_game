@@ -10,7 +10,7 @@ public class ResultMenu implements Menuable {
     private final ResultDaoImpl resultDao = new ResultDaoImpl();
 
     private void printTableHeader() {
-        System.out.printf("| %-10s | %-13s | %-5s |%n",
+        System.out.printf("| %-3s | %-30s | %-5s |%n",
                 "ID",
                 "Student Name",
                 "Score"

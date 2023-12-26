@@ -6,8 +6,6 @@
 - Hibernate
 - Dao
 
----
-
 ## Members
 
 - Charlotte Henriksson - Quiz
@@ -15,7 +13,6 @@
 - Dennis Staffansson - Category
 - Maxim Khnykin - Result & Student
 
----
 
 ## Docker
 

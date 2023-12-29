@@ -36,8 +36,9 @@ public class CategoryMenu implements Menu {
 
 
     private void showCategory() {
+        var result = categoryDao.readAll();
         printTableHeader();
-        categoryDao.readAll().forEach(this::printTableContent);
+        result.forEach(this::printTableContent);
     }
 
     private void createCategory(Scanner scanner) {
@@ -51,21 +52,28 @@ public class CategoryMenu implements Menu {
     }
 
     private void updateCategory(Scanner scanner) {
-        System.out.println("Enter name of category to update");
-        String categoryName = scanner.nextLine();
+        System.out.println("Enter id of category to update");
+        int categoryId = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Enter new name of category");
+        var categoryName = scanner.nextLine();
 
         Category category = new Category();
+
+        category.setCategoryId(categoryId);
         category.setName(categoryName);
 
         categoryDao.update(category);
     }
 
     private void deleteCategory(Scanner scanner) {
-        System.out.println("Enter name of category to delete");
-        String categoryName = scanner.nextLine();
+        System.out.println("Enter id of category to delete");
+        int categoryId = scanner.nextInt();
+        scanner.nextLine();
 
         Category category = new Category();
-        category.setName(categoryName);
+        category.setCategoryId(categoryId);
 
         categoryDao.delete(category);
     }
